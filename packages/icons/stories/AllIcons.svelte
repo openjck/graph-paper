@@ -13,6 +13,12 @@ export let color = '#000';
   grid-column-gap: var(--space-2x);
   grid-row-gap: var(--space-base);
 }
+
+.icon--component {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
 </style>
 
 <div class="icon-set">
