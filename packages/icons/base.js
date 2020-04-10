@@ -11,6 +11,7 @@ import Menu from "./Menu.svelte";
 import Search from "./Search.svelte";
 import Warning from "./Warning.svelte";
 
+import LineChart from './LineChart.svelte';
 import BarChart from "./BarChart.svelte";
 import Table from "./Table.svelte";
 
@@ -29,6 +30,7 @@ const icons = {
   Warning,
   BarChart,
   Table,
+  LineChart,
 };
 export default icons;
 
@@ -47,4 +49,5 @@ export {
   Warning,
   BarChart,
   Table,
+  LineChart,
 };
