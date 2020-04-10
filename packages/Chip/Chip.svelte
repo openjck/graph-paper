@@ -3,6 +3,7 @@
 import { cubicOut } from 'svelte/easing';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createEventDispatcher } from 'svelte';
+import { Close as Cancel } from '@graph-paper/icons';
 
 const dispatch = createEventDispatcher();
 export let key;
@@ -59,6 +60,6 @@ function cancel() {
   <slot></slot>
   <!-- FIXME: move to x icon once that package has been ported over -->
   {#if cancelable}
-    <div on:click={cancel}>x</div>
+    <div class="gp-chip--icon" on:click={cancel}><Cancel size={14} /></div>
   {/if}
 </div>

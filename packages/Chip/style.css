@@ -9,6 +9,7 @@
   display: grid;
   grid-auto-flow: column;
   grid-column-gap: var(--space-1h);
+  align-items: center;
 }
 
 .gp-chip--togglable {
@@ -31,4 +32,27 @@
 .gp-chip--toggled {
   background-color: var(--pantone-red-200);
   color: var(--pantone-red-700);
+}
+
+.gp-chip--toggled:hover {
+  background-color: var(--pantone-red-300);
+  color: var(--pantone-red-700);
+}
+
+.gp-chip--icon {
+  display: grid;
+  align-items: center;
+  background-color: var(--cool-gray-100);
+  border-radius: var(--space-2x);
+  padding: var(--space-1q);
+  transform: translateX(var(--space-1h));
+  box-sizing: border-box;
+  transition: background-color 200ms, color 200ms, box-shadow 200ms;
+  cursor: pointer;
+}
+
+.gp-chip--icon:hover {
+  background-color: var(--pantone-red-100);
+  color: var(--pantone-red-800);
+  box-shadow: 0px 0px var(--space-1h) rgba(0,0,0,.3);
 }

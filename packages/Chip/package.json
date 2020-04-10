@@ -15,6 +15,9 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
+  "dependencies": {
+    "@graph-paper/icons": "0.0.0"
+  },
   "devDependencies": {
     "@graph-paper/button": "0.0.0-alpha.6",
     "@graph-paper/stack": "0.0.0-alpha.6"
