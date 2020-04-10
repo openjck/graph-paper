@@ -8,7 +8,7 @@ export default {
 export const AllIcons = () => ({
   Component: AllIconsStory,
   props: {
-    size: number('size', 24),
-    color: color('color', '#000')
+    size: number("size", 24),
+    color: color("color", "#000"),
   },
 });

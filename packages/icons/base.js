@@ -1,18 +1,18 @@
 import Close from "./Close.svelte";
-import ArrowheadDown from './ArrowheadDown.svelte';
-import ArrowheadUp from './ArrowheadUp.svelte';
-import ArrowheadLeft from './ArrowheadLeft.svelte';
-import ArrowheadRight from './ArrowheadRight.svelte';
-import Forward from './Forward.svelte';
-import Help from './Help.svelte';
-import Info from './Info.svelte';
-import Information from './Information.svelte';
-import Menu from './Menu.svelte';
-import Search from './Search.svelte';
-import Warning from './Warning.svelte';
+import ArrowheadDown from "./ArrowheadDown.svelte";
+import ArrowheadUp from "./ArrowheadUp.svelte";
+import ArrowheadLeft from "./ArrowheadLeft.svelte";
+import ArrowheadRight from "./ArrowheadRight.svelte";
+import Forward from "./Forward.svelte";
+import Help from "./Help.svelte";
+import Info from "./Info.svelte";
+import Information from "./Information.svelte";
+import Menu from "./Menu.svelte";
+import Search from "./Search.svelte";
+import Warning from "./Warning.svelte";
 
-import BarChart from './BarChart.svelte';
-import Table from './Table.svelte';
+import BarChart from "./BarChart.svelte";
+import Table from "./Table.svelte";
 
 const icons = {
   Close,
@@ -28,7 +28,7 @@ const icons = {
   Search,
   Warning,
   BarChart,
-  Table
+  Table,
 };
 export default icons;
 
@@ -46,5 +46,5 @@ export {
   Search,
   Warning,
   BarChart,
-  Table
+  Table,
 };
