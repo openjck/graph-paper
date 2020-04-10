@@ -11,11 +11,24 @@
   grid-column-gap: var(--space-1h);
 }
 
-.gp-chip--toggled {
-  background-color: var(--pantone-red-200);
-  color: var(--pantone-red-900);
+.gp-chip--togglable {
+  cursor: pointer;
 }
 
 .gp-chip--togglable {
-  cursor: pointer;
+  transition: background-color 200ms, color 200ms;
+}
+
+.gp-chip--cancelable {
+  transition: background-color 200ms, color 200ms;
+}
+
+.gp-chip--togglable:hover, .gp-chip--cancelable:hover {
+  background-color: var(--cool-gray-250);
+  color: var(--cool-gray-800);
+}
+
+.gp-chip--toggled {
+  background-color: var(--pantone-red-200);
+  color: var(--pantone-red-700);
 }

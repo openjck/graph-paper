@@ -51,6 +51,7 @@ function cancel() {
 
 <div
   class:gp-chip--togglable={togglable}
+  class:gp-chip--cancelable={cancelable}
   class:gp-chip--toggled={toggled}
   on:click class="gp-chip"
   transition:fold|local={{ duration: 200 }}
