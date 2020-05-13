@@ -101,7 +101,7 @@
       return sc.ticks(tickCount);
     }
     if (sc.type === "log") {
-      return symLogTicks($mainScale.domain()[1]);
+      return symLogTicks(sc.domain()[1]);
     }
     return sc.domain().reduce((acc, v, i, source) => {
       // let's filter to get the right number of ticks.
@@ -125,10 +125,10 @@
     // to be an array
     TICKS = ticks($mainScale);
   } else {
-    TICKS = getDefaultTicks($mainScale);
+    TICKS = getDefaultTicks($mainScale, $bodyDimension);
   }
 
-  // change TICKS to have x, y, x1, x2, y1, y2
+  // how many of these are derived from side?
 
   export let tickDirection = side === "right" || side === "bottom" ? 1 : -1;
 
@@ -143,8 +143,10 @@
   export let showBorder = false;
   export let showLabels = true;
 
+  // the main dim is actually probably more like the oppositeDimension.
   let mainDim = side === "left" || side === "right" ? "x" : "y";
-  let secondaryDim = side === "left" || side === "right" ? "y" : "x";
+  // the secondaryDim is the orientation;
+  let orientation = side === "left" || side === "right" ? "y" : "x";
 
   let fontSizeCorrector = side === "bottom" ? tickFontSize : $buffer;
 
@@ -152,7 +154,7 @@
   // children like AxisLabel consume these.
 
   setContext("mainDim", mainDim);
-  setContext("secondaryDim", secondaryDim);
+  setContext("gp:axis:orientation", orientation);
   setContext("mainScale", mainScale);
   setContext("side", side);
   setContext("bodyDimension", bodyDimension);
@@ -165,11 +167,6 @@
   setContext("fontSizeCorrector", fontSizeCorrector);
   setContext("tickFormatter", tickFormatter);
   setContext("align", align);
-
-  let R = tweened(-1, { duration: 500 });
-  setInterval(() => {
-    $R = $R < 0 ? 1 : -1;
-  }, 1000);
 </script>
 
 <g in:fade={fadeValues} class="{side}-axis">

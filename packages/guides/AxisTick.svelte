@@ -4,7 +4,7 @@
   export let dashArray;
   export let mainScale = getContext("mainScale");
   export let mainDim = getContext("mainDim");
-  export let secondaryDim = getContext("secondaryDim");
+  export let orientation = getContext("gp:axis:orientation");
   export let tickDirection = getContext("tickDirection");
   export let bodyDimension = getContext("bodyDimension");
   export let side = getContext("side");
@@ -21,11 +21,18 @@
   $: sideOffset = side === "left" || side === "top" ? -offset : offset;
   export let step =
     $mainScale.type === "scaleBand" ? $mainScale.bandwidth() / 2 : 0;
+
+  $: parameters = {
+    [`${mainDim}2`]: $bodyDimension + sideOffset + tickDirection * length,
+    [`${mainDim}1`]: $bodyDimension + sideOffset,
+    [`${orientation}1`]: $mainScale(placement) + step,
+    [`${orientation}2`]: $mainScale(placement) + step,
+  };
 </script>
 
 <line
   class="tick"
-  {...{ [`${mainDim}2`]: $bodyDimension + sideOffset + tickDirection * length, [`${mainDim}1`]: $bodyDimension + sideOffset, [`${secondaryDim}1`]: $mainScale(placement) + step, [`${secondaryDim}2`]: $mainScale(placement) + step }}
+  {...parameters}
   stroke-dasharray={dashArray}
   stroke={color}
   stroke-width={width} />

@@ -4,7 +4,7 @@
   export let mainScale = getContext("mainScale");
   export let side = getContext("side");
   export let mainDim = getContext("mainDim");
-  export let secondaryDim = getContext("secondaryDim");
+  export let orientation = getContext("gp:axis:orientation");
   export let bodyDimension = getContext("bodyDimension");
   export let minimumDimension = getContext("minimumDimension");
   export let maximumDimension = getContext("maximumDimension");
@@ -20,6 +20,6 @@
 </script>
 
 <line
-  {...{ [`${secondaryDim}1`]: $minimumDimension, [`${secondaryDim}2`]: $maximumDimension, [`${mainDim}1`]: $bodyDimension + sideOffset, [`${mainDim}2`]: $bodyDimension + sideOffset }}
+  {...{ [`${orientation}1`]: $minimumDimension, [`${orientation}2`]: $maximumDimension, [`${mainDim}1`]: $bodyDimension + sideOffset, [`${mainDim}2`]: $bodyDimension + sideOffset }}
   stroke={color}
   stroke-width={width} />

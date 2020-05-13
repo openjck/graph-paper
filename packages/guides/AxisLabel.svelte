@@ -1,9 +1,9 @@
 <script>
-  import { getContext, onMount } from "svelte"; // eslint-disable-line import/no-extraneous-dependencies
+  import { getContext } from "svelte"; // eslint-disable-line import/no-extraneous-dependencies
 
   export let side = getContext("side");
   export let mainDim = getContext("mainDim");
-  export let secondaryDim = getContext("secondaryDim");
+  export let orientation = getContext("gp:axis:orientation");
   export let mainScale = getContext("mainScale");
   export let bodyDimension = getContext("bodyDimension");
   export let tickDirection = getContext("tickDirection");
@@ -14,22 +14,18 @@
     function format(v) {
       return v;
     };
-  export let align = getContext("align") || "middle";
 
   // the domain value where the placement should occur
   export let placement;
   export let offset = 0;
-  export let rotate = 0;
   export let fontSize = 10;
   export let fontWeight = "normal";
   export let color = "black";
-  export let dx = 0;
-  export let dy = 0;
 
-  function place(v, dim, sc, buff) {
+  function place(v, dim, sc, bd, buff) {
     if (mainDim === dim) {
       return (
-        $bodyDimension +
+        bd +
         tickDirection * buff +
         (side === "top" || side === "bottom"
           ? tickDirection * fontSizeCorrector
@@ -44,40 +40,38 @@
   // let's set alignment dynamically as a dx property
   let container;
   let label;
-  let alignmentOffset = 0;
-  let yAdjustment = 0;
-  let mounted = false;
-  onMount(() => {
-    mounted = true;
-  });
 
-  $: if (mounted && align) {
-    let { width, height } = container.getBoundingClientRect();
-    // let { height } = label.getBoundingClientRect();
-    if (align === "middle") alignmentOffset = -width / 2;
-    else if (align === "end") alignmentOffset = -width;
-    else alignmentOffset = 0;
-    yAdjustment = height / 4;
-  }
+  let textAnchor = "middle";
+  if (side === "left") textAnchor = "end";
+  if (side === "right") textAnchor = "start";
 
-  let transform = "";
-  $: transform = `${
-    rotate !== 0
-      ? `rotate(${rotate} ${
-          place(placement, "x", $mainScale, $buffer) - alignmentOffset
-        } ${place(placement, "y", $mainScale, $buffer)}) `
-      : " "
-  } ${mainDim === "x" ? `translate(0 ${yAdjustment})` : ""}`;
+  $: parameters = {
+    [`${mainDim}`]: place(
+      placement,
+      mainDim,
+      $mainScale,
+      $bodyDimension,
+      $buffer
+    ),
+    [`${orientation}`]: place(
+      placement,
+      orientation,
+      $mainScale,
+      $bodyDimension,
+      $buffer
+    ),
+    dy: orientation === "y" ? ".35em" : 0,
+    "text-anchor": textAnchor,
+  };
 </script>
 
-<g bind:this={container} transform="translate({alignmentOffset} 0)">
+<g bind:this={container}>
   <text
     bind:this={label}
-    {...{ [`${mainDim}`]: place(placement, mainDim, $mainScale, $buffer), [`${secondaryDim}`]: place(placement, secondaryDim, $mainScale, $buffer), dy, dx }}
+    {...parameters}
     font-size={fontSize}
     font-weight={fontWeight}
-    fill={color}
-    {transform}>
+    fill={color}>
     <slot>{tickFormatter(placement)}</slot>
   </text>
 </g>
