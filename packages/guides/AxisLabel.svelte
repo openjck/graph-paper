@@ -2,9 +2,9 @@
   import { getContext } from "svelte"; // eslint-disable-line import/no-extraneous-dependencies
 
   export let side = getContext("side");
-  export let mainDim = getContext("mainDim");
+  export let response = getContext("gp:axis:response");
   export let orientation = getContext("gp:axis:orientation");
-  export let mainScale = getContext("mainScale");
+  export let orientationScale = getContext("gp:axis:orientationScale");
   export let bodyDimension = getContext("bodyDimension");
   export let tickDirection = getContext("tickDirection");
   export let fontSizeCorrector = getContext("fontSizeCorrector");
@@ -17,20 +17,19 @@
 
   // the domain value where the placement should occur
   export let placement;
-  export let offset = 0;
   export let fontSize = 10;
   export let fontWeight = "normal";
   export let color = "black";
 
   function place(v, dim, sc, bd, buff) {
-    if (mainDim === dim) {
+    if (response === dim) {
       return (
         bd +
         tickDirection * buff +
         (side === "top" || side === "bottom"
           ? tickDirection * fontSizeCorrector
           : 0) +
-        (side === "left" || side === "top" ? -offset : offset)
+        (side === "left" || side === "top" ? -$buffer : $buffer)
       );
     }
     let step = sc.type === "scaleBand" ? sc.bandwidth() / 2 : 0;
@@ -46,17 +45,17 @@
   if (side === "right") textAnchor = "start";
 
   $: parameters = {
-    [`${mainDim}`]: place(
+    [`${response}`]: place(
       placement,
-      mainDim,
-      $mainScale,
+      response,
+      $orientationScale,
       $bodyDimension,
       $buffer
     ),
     [`${orientation}`]: place(
       placement,
       orientation,
-      $mainScale,
+      $orientationScale,
       $bodyDimension,
       $buffer
     ),

@@ -7,8 +7,6 @@
   //   the numeric values, placement, etc. for each. This would let the implementer
   //   do whatever they want without having to make the same tedious calculations.
 
-  import { tweened } from "svelte/motion"; // eslint-disable-line import/no-extraneous-dependencies
-
   import { getContext, setContext } from "svelte"; // eslint-disable-line import/no-extraneous-dependencies
   import { fade } from "svelte/transition"; // eslint-disable-line import/no-extraneous-dependencies
 
@@ -25,7 +23,7 @@
     else mainScaleName = "xScale";
   }
 
-  export let mainScale = getContext(mainScaleName);
+  export let orientationScale = getContext(mainScaleName);
   export let bodyDimension = getContext(`${side}Plot`);
   export let rotate = 0;
 
@@ -123,9 +121,9 @@
     // if you pass in a function, the function operates
     // on the xScale accordingly and returns whatever it needs
     // to be an array
-    TICKS = ticks($mainScale);
+    TICKS = ticks($orientationScale);
   } else {
-    TICKS = getDefaultTicks($mainScale, $bodyDimension);
+    TICKS = getDefaultTicks($orientationScale, $bodyDimension);
   }
 
   // how many of these are derived from side?
@@ -137,14 +135,16 @@
 
   export let lineStyle = side === "left" || side === "right" ? "long" : "short";
   export let tickFormatter =
-    $mainScale.type === "time" ? $mainScale.tickFormat(tickCount) : (t) => t;
+    $orientationScale.type === "time"
+      ? $orientationScale.tickFormat(tickCount)
+      : (t) => t;
 
   export let showTicks = true;
   export let showBorder = false;
   export let showLabels = true;
 
   // the main dim is actually probably more like the oppositeDimension.
-  let mainDim = side === "left" || side === "right" ? "x" : "y";
+  let response = side === "left" || side === "right" ? "x" : "y";
   // the secondaryDim is the orientation;
   let orientation = side === "left" || side === "right" ? "y" : "x";
 
@@ -153,9 +153,9 @@
   // axis system context setting.
   // children like AxisLabel consume these.
 
-  setContext("mainDim", mainDim);
+  setContext("gp:axis:response", response);
   setContext("gp:axis:orientation", orientation);
-  setContext("mainScale", mainScale);
+  setContext("gp:axis:orientationScale", orientationScale);
   setContext("side", side);
   setContext("bodyDimension", bodyDimension);
   setContext("obverseDimension", obverseDimension);

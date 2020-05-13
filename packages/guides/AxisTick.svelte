@@ -2,8 +2,8 @@
   import { getContext } from "svelte"; // eslint-disable-line import/no-extraneous-dependencies
 
   export let dashArray;
-  export let mainScale = getContext("mainScale");
-  export let mainDim = getContext("mainDim");
+  export let orientationScale = getContext("gp:axis:orientationScale");
+  export let response = getContext("gp:axis:response");
   export let orientation = getContext("gp:axis:orientation");
   export let tickDirection = getContext("tickDirection");
   export let bodyDimension = getContext("bodyDimension");
@@ -20,13 +20,15 @@
   let sideOffset;
   $: sideOffset = side === "left" || side === "top" ? -offset : offset;
   export let step =
-    $mainScale.type === "scaleBand" ? $mainScale.bandwidth() / 2 : 0;
+    $orientationScale.type === "scaleBand"
+      ? $orientationScale.bandwidth() / 2
+      : 0;
 
   $: parameters = {
-    [`${mainDim}2`]: $bodyDimension + sideOffset + tickDirection * length,
-    [`${mainDim}1`]: $bodyDimension + sideOffset,
-    [`${orientation}1`]: $mainScale(placement) + step,
-    [`${orientation}2`]: $mainScale(placement) + step,
+    [`${response}2`]: $bodyDimension + sideOffset + tickDirection * length,
+    [`${response}1`]: $bodyDimension + sideOffset,
+    [`${orientation}1`]: $orientationScale(placement) + step,
+    [`${orientation}2`]: $orientationScale(placement) + step,
   };
 </script>
 
