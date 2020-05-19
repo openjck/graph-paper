@@ -2,6 +2,10 @@
 
 ## unreleased
 
+- Fix issue where if width or height is `undefined`, then gets defined, the
+  graphic should update
+  ([#113](https://github.com/graph-paper-org/graph-paper/pull/113))
+
 ## 0.0.0-alpha.10
 
 Published `2020-05-15`
