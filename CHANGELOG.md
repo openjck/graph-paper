@@ -2,8 +2,7 @@
 
 ## unreleased
 
-- Fix issue where if width or height is `undefined`, then gets defined, the
-  graphic should update
+- Fix issue where width and height not updating reactively in `DataGraphic`
   ([#113](https://github.com/graph-paper-org/graph-paper/pull/113))
 
 ## 0.0.0-alpha.10
